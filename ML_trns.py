@@ -9,7 +9,7 @@ import pandas as pd
 import numpy as np
 
 
-df=pd.read_csv("C:\\Users\\687338\\Desktop\\Datasets\\trnscs.csv")
+df=pd.read_csv("C:\\Users\\687338\\Desktop\\Datasets\\trns100.csv")
 #print(df.head(5))
 
 print(df.columns)
@@ -49,18 +49,22 @@ print("\n",x_test,"\n",y_test,"\n",final_y,"\nThe Svm Accuracy is=",acc)
 from sklearn.linear_model import LogisticRegression
 LR=LogisticRegression(C=0.01, solver='liblinear')
 LR.fit(x_train,y_train)
+LR_train_final=LR.predict(x_train)
 LR_final=LR.predict(x_test)
 
 yhat_prob = LR.predict_proba(x_test)
 print(yhat_prob)
 
+print("\nThe LR training accuracy",accuracy_score(y_train,LR_train_final)*100)
 print("\nThe LR accuracy",accuracy_score(y_test,LR_final)*100)
 
 from sklearn.ensemble import RandomForestClassifier
 rf=RandomForestClassifier(n_estimators=20)
 rf.fit(x_train,y_train)
+rf_train_final=rf.predict(x_test)
 rf_final_y=rf.predict(x_test)
 
+#print("The RandomForestClassifier training Accuracy is",accuracy_score(y_train,rf_train_final)*100)
 print("The RandomForestClassifier Accuracy is",accuracy_score(y_test,rf_final_y)*100)
 
 
